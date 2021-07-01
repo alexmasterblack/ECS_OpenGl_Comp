@@ -1,6 +1,8 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include <memory>
+
 #include "../my_math/Vec3.h"
 #include "../TextureLoading.h"
 #include "../Shader.h"
@@ -10,17 +12,10 @@ class PointLight {
 public:
 	PointLight() = default;
 
-	PointLight(Vec3 position);
-
-	void SetPosition(Vec3 position);
-
-	Vec3 GetPosition();
-
 	void Setup();
 
-	void Draw(std::shared_ptr<Shader> shader);
+	void Draw(std::shared_ptr<Shader> shader, Vec3 position);
 private:
-	Vec3 position;
 	VertexArraysObject VAO;
 };
 

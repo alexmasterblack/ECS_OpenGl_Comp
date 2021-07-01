@@ -12,7 +12,6 @@ unsigned int Object::GetId() {
 
 void Object::SetComponent(std::shared_ptr<Cube> cube) {
 	componets.PushComponent(cube, id);
-	componets.cubes[id] = cube;
 }
 
 void Object::SetComponent(std::shared_ptr<PointLight> point) {
@@ -21,6 +20,10 @@ void Object::SetComponent(std::shared_ptr<PointLight> point) {
 
 void Object::SetComponent(std::shared_ptr<Shader> shader) {
 	componets.PushComponent(shader, id);
+}
+
+void Object::SetComponent(Vec3 position) {
+	componets.PushComponent(position, id);
 }
 
 std::shared_ptr<Shader> Object::GetShader() {

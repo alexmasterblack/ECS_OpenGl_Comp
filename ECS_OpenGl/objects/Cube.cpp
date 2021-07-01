@@ -1,17 +1,5 @@
 #include "Cube.h"
 
-Cube::Cube(Vec3 position) {
-	this->position = position;
-}
-
-void Cube::SetPosition(Vec3 position) {
-	this->position = position;
-}
-
-Vec3 Cube::GetPosition() {
-	return position;
-}
-
 void Cube::Setup() {
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
@@ -66,7 +54,7 @@ void Cube::Setup() {
 	VAO.VertexAttribPointer(2, 2, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 }
 
-void Cube::Draw(std::shared_ptr<Shader> shader) {
+void Cube::Draw(std::shared_ptr<Shader> shader, Vec3 position) {
 	VAO.Binding();
 
 	Mat4 model(1.0f);

@@ -18,18 +18,20 @@ void Scene::Setup() {
 	shaderSkyBox = Shader("files/shaders/skybox.vs", "files/shaders/skybox.fs");
 
 	for (int count = 0; count < 2; count++) {
-		std::shared_ptr<Cube> cube(new Cube(positionsCube[count]));
+		std::shared_ptr<Cube> cube(new Cube());
 		Object object;
 		object.SetComponent(cube);
 		object.SetComponent(std::make_shared<Shader>(shaderCube));
+		object.SetComponent(positionsCube[count]);
 		objects.push_back(object);
 	}
 
 	for (int count = 0; count < 3; count++) {
-		std::shared_ptr<PointLight> cube(new PointLight(positionsPoint[count]));
+		std::shared_ptr<PointLight> cube(new PointLight());
 		Object object;
 		object.SetComponent(cube);
 		object.SetComponent(std::make_shared<Shader>(shaderPoint));
+		object.SetComponent(positionsPoint[count]);
 		objects.push_back(object);
 	}
 

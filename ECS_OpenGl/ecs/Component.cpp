@@ -12,6 +12,10 @@ void Component::PushComponent(std::shared_ptr<Shader> shader, unsigned int id) {
 	shaders[id] = shader;
 }
 
+void Component::PushComponent(Vec3 position, unsigned int id) {
+	positions[id] = position;
+}
+
 std::shared_ptr<Shader> Component::GetComponent(unsigned int id) {
 	return shaders.at(id);
 }
@@ -26,10 +30,10 @@ void Component::Setup(unsigned int id) {
 
 void Component::DrawCube(unsigned int id) {
 	if (cubes.find(id) != cubes.end())
-		cubes.at(id)->Draw(shaders.at(id));
+		cubes.at(id)->Draw(shaders.at(id), positions.at(id));
 }
 
 void Component::DrawLight(unsigned int id) {
 	if (points.find(id) != points.end())
-		points.at(id)->Draw(shaders.at(id));
+		points.at(id)->Draw(shaders.at(id), positions.at(id));
 }

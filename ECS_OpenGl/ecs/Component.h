@@ -4,6 +4,8 @@
 #include <map>
 #include <memory>
 
+#include "../my_math/Vec3.h"
+
 #include "../objects/Cube.h"
 #include "../objects/PointLight.h"
 #include "../objects/SkyBox.h"
@@ -20,6 +22,8 @@ public:
 
     void PushComponent(std::shared_ptr<Shader> shader, unsigned int id);
 
+    void PushComponent(Vec3 position, unsigned int id);
+
     std::shared_ptr<Shader> GetComponent(unsigned int id);
 
     void Setup(unsigned int id);
@@ -27,11 +31,11 @@ public:
     void DrawCube(unsigned int id);
 
     void DrawLight(unsigned int id);
-
-    std::map<unsigned int, std::shared_ptr<Cube>> cubes;
 private:
     std::map<unsigned int, std::shared_ptr<PointLight>> points;
     std::map<unsigned int, std::shared_ptr<Shader>> shaders;
+    std::map<unsigned int, std::shared_ptr<Cube>> cubes;
+    std::map<unsigned int, Vec3> positions;
 };
 
 #endif
