@@ -70,5 +70,5 @@ void Core::Update() {
 }
 
 void Core::PostUpdate() {
-	scene.Draw(camera);
+	scene.Draw();
 }

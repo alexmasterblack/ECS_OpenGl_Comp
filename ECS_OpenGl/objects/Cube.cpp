@@ -58,23 +58,36 @@ void Cube::Setup() {
 	VAO.VertexAttribPointer(2, 2, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 }
 
-void Cube::SetPointLighting(std::shared_ptr<Shader> shader, std::vector<Vec3> positions, Vec3 fading, Camera camera, Light point, float shininess) {
+void Cube::SetLight(
+	std::shared_ptr<Shader> shader, 
+	std::vector<Vec3> positions, 
+	Vec3 fading, 
+	Camera camera, 
+	Light point, 
+	Light spot, 
+	Light directional,
+	float shininess,
+	float cutOff,
+	float outerCutOff) {
 	shader->Use();
 	shader->SetVec3("viewPos", camera.GetPosition());
 	shader->SetFloat("material.shininess", shininess);
 
-	for (int count = 0; count < 3; count++) {
-		shader->SetVec3("pointLights[" + std::to_string(count) + "].position", positions[count]);
-		shader->SetVec3("pointLights[" + std::to_string(count) + "].ambient", point.ambient);
-		shader->SetVec3("pointLights[" + std::to_string(count) + "].diffuse", point.diffuse);
-		shader->SetVec3("pointLights[" + std::to_string(count) + "].specular", point.specular);
-		shader->SetFloat("pointLights[" + std::to_string(count) + "].constant", fading.x);
-		shader->SetFloat("pointLights[" + std::to_string(count) + "].linear", fading.y);
-		shader->SetFloat("pointLights[" + std::to_string(count) + "].quadratic", fading.z);
-	}
-}
+	shader->SetVec3("dirLight.direction", directional.direction);
+	shader->SetVec3("dirLight.ambient", directional.ambient);
+	shader->SetVec3("dirLight.diffuse", directional.diffuse);
+	shader->SetVec3("dirLight.specular", directional.specular);
 
-void Cube::SetSpotLighting(std::shared_ptr<Shader> shader, Vec3 fading, Camera camera, Light spot, float cutOff, float outerCutOff) {
+	for (int i = 0; i < 3; i++) {
+		shader->SetVec3("pointLights[" + std::to_string(i) + "].position", positions[i]);
+		shader->SetVec3("pointLights[" + std::to_string(i) + "].ambient", point.ambient);
+		shader->SetVec3("pointLights[" + std::to_string(i) + "].diffuse", point.diffuse);
+		shader->SetVec3("pointLights[" + std::to_string(i) + "].specular", point.specular);
+		shader->SetFloat("pointLights[" + std::to_string(i) + "].constant", fading.x);
+		shader->SetFloat("pointLights[" + std::to_string(i) + "].linear", fading.y);
+		shader->SetFloat("pointLights[" + std::to_string(i) + "].quadratic", fading.z);
+	}
+
 	shader->SetVec3("spotLight.position", camera.GetPosition());
 	shader->SetVec3("spotLight.direction", camera.GetFront());
 	shader->SetVec3("spotLight.ambient", spot.ambient);
@@ -84,9 +97,8 @@ void Cube::SetSpotLighting(std::shared_ptr<Shader> shader, Vec3 fading, Camera c
 	shader->SetFloat("spotLight.linear", fading.y);
 	shader->SetFloat("spotLight.quadratic", fading.z);
 	shader->SetFloat("spotLight.cutOff", cos(ToRadians(cutOff)));
-	shader->SetFloat("spotLight.outerCutOff", cos(ToRadians(outerCutOff)));
+	shader->SetFloat("spotLight.outerCutOff",cos(ToRadians(outerCutOff)));
 }
-
 
 void Cube::Draw(std::shared_ptr<Shader> shader, Vec3 position, Camera camera) {
 	Mat4 view(camera.GetViewMatrix());

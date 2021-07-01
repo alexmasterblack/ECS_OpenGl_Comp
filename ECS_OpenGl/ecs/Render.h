@@ -13,14 +13,13 @@ class Render {
 public:
 	Render() = default;
 
-	void DrawCube(std::vector<Object> objects);
+	Render(std::vector<Object> objects);
 
-	void DrawPoint(std::vector<Object> objects);
+	void Draw();
 
-	void DrawSkyBox(Shader& shader, Camera& camera, std::shared_ptr<SkyBox> skybox);
-
-	void SetLighting(std::vector<Object> objects);
+	void SetLighting();
 private:
+	std::vector<Object> objects;
 };
 
 #endif

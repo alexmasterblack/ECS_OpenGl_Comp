@@ -23,6 +23,8 @@ public:
 
     void PushComponent(std::shared_ptr<Shader> shader, unsigned int id);
 
+    void PushComponent(std::shared_ptr<SkyBox> skybox, unsigned int id);
+
     void PushComponent(Vec3 position, unsigned int id);
 
     void PushComponent(Camera camera, unsigned int id);
@@ -30,6 +32,8 @@ public:
     void PushPointLight(Light point);
 
     void PushSpotLight(Light spot);
+
+    void PushDirectLight(Light directional);
 
     void PushFading(Vec3 fading);
 
@@ -48,15 +52,19 @@ public:
     void DrawCube(unsigned int id);
 
     void DrawLight(unsigned int id);
+
+    void DrawSkyBox(unsigned int id);
 private:
     std::map<unsigned int, std::shared_ptr<PointLight>> points;
     std::map<unsigned int, std::shared_ptr<Shader>> shaders;
     std::map<unsigned int, std::shared_ptr<Cube>> cubes;
+    std::map<unsigned int, std::shared_ptr<SkyBox>> skybox;
     std::map<unsigned int, Vec3> positions;
     std::map<unsigned int, Camera> cameras;
 
     Light point;
     Light spot;
+    Light directional;
     Vec3 fading;
     float shininess;
     float cutOff;

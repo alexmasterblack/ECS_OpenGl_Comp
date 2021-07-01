@@ -26,11 +26,15 @@ public:
 
 	void SetComponent(std::shared_ptr<Shader> shader);
 
+	void SetComponent(std::shared_ptr<SkyBox> skybox);
+
 	void SetComponent(Camera camera);
 
 	void SetPointLight(Light point);
 
 	void SetSpotLight(Light spot);
+
+	void SetDirectLight(Light directional);
 
 	void SetFading(float constant, float linear, float quadratic);
 
@@ -53,6 +57,8 @@ public:
 	void Draw();
 
 	void DrawLight();
+
+	void DrawSkyBox();
 private:
 	unsigned int id = 0;
 };

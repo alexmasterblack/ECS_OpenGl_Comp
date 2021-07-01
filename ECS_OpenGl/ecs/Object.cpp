@@ -22,6 +22,10 @@ void Object::SetComponent(std::shared_ptr<Shader> shader) {
 	componets.PushComponent(shader, id);
 }
 
+void Object::SetComponent(std::shared_ptr<SkyBox> skybox) {
+	componets.PushComponent(skybox, id);
+}
+
 void Object::SetComponent(Camera camera) {
 	componets.PushComponent(camera, id);
 }
@@ -32,6 +36,10 @@ void Object::SetPointLight(Light point) {
 
 void Object::SetSpotLight(Light spot) {
 	componets.PushSpotLight(spot);
+}
+
+void Object::SetDirectLight(Light directional) {
+	componets.PushDirectLight(directional);
 }
 
 void Object::SetFading(float constant, float linear, float quadratic) {
@@ -76,4 +84,8 @@ void Object::Draw() {
 
 void Object::DrawLight() {
 	componets.DrawLight(id);
+}
+
+void Object::DrawSkyBox() {
+	componets.DrawSkyBox(id);
 }

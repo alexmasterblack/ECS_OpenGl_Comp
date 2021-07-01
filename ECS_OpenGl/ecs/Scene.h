@@ -25,7 +25,7 @@ public:
 
 	void Lighting(Camera& camera);
 
-	void Draw(Camera& camera);
+	void Draw();
 private:
 	std::vector<Object> objects;
 	std::shared_ptr<SkyBox> skybox;

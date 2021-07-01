@@ -5,6 +5,7 @@
 
 class Light {
 public:
+	Vec3 direction;
 	Vec3 ambient;
 	Vec3 diffuse;
 	Vec3 specular;
@@ -12,6 +13,8 @@ public:
 	Light() = default;
 
 	Light(Vec3 ambient, Vec3 diffuse, Vec3 specular);
+
+	Light(Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular);
 };
 
 #endif

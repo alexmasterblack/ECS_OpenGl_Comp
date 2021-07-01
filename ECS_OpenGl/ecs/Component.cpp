@@ -12,6 +12,10 @@ void Component::PushComponent(std::shared_ptr<Shader> shader, unsigned int id) {
 	shaders[id] = shader;
 }
 
+void Component::PushComponent(std::shared_ptr<SkyBox> skybox, unsigned int id) {
+	this->skybox[id] = skybox;
+}
+
 void Component::PushComponent(Vec3 position, unsigned int id) {
 	positions[id] = position;
 }
@@ -26,6 +30,10 @@ void Component::PushPointLight(Light point) {
 
 void Component::PushSpotLight(Light spot) {
 	this->spot = spot;
+}
+
+void Component::PushDirectLight(Light directional) {
+	this->directional = directional;
 }
 
 void Component::PushFading(Vec3 fading) {
@@ -54,12 +62,14 @@ void Component::Setup(unsigned int id) {
 
 	if (points.find(id) != points.end())
 		points.at(id)->Setup();
+
+	if (skybox.find(id) != skybox.end())
+		skybox.at(id)->Setup(shaders.at(id));
 }
 
 void Component::SetLight(unsigned int id) {
 	if (cubes.find(id) != cubes.end()) {
-		cubes.at(id)->SetPointLighting(shaders.at(id), GetLightPos(), fading, cameras.at(id), point, shininess);
-		cubes.at(id)->SetSpotLighting(shaders.at(id), fading, cameras.at(id), spot, cutOff, outerCutOff);
+		cubes.at(id)->SetLight(shaders.at(id), GetLightPos(), fading, cameras.at(id), point, spot, directional, shininess, cutOff, outerCutOff);
 	}
 }
 
@@ -71,6 +81,11 @@ void Component::DrawCube(unsigned int id) {
 void Component::DrawLight(unsigned int id) {
 	if (points.find(id) != points.end())
 		points.at(id)->Draw(shaders.at(id), positions.at(id), cameras.at(id));
+}
+
+void Component::DrawSkyBox(unsigned int id) {
+	if (skybox.find(id) != skybox.end())
+		skybox.at(id)->Draw(shaders.at(id), cameras.at(id));
 }
 
 std::vector<Vec3> Component::GetLightPos() {

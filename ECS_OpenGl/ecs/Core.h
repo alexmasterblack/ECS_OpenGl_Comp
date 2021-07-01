@@ -24,9 +24,7 @@ public:
 	void PostUpdate();
 private:
 	sf::RenderWindow window;
-
 	Camera camera;
-
 	Scene scene;
 };
 

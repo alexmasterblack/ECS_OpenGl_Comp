@@ -20,7 +20,9 @@ void Scene::Setup() {
 	Object light;
 	light.SetPointLight(Light(Vec3(0.05f, 0.05f, 0.05f), Vec3(0.8f, 0.8f, 0.8f), Vec3(1.0f, 1.0f, 1.0f)));
 	light.SetSpotLight(Light(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 1.0f, 1.0f), Vec3(1.0f, 1.0f, 1.0f)));
-	light.SetFading(Vec3(1.0f, 0.09, 0.032));
+	light.SetDirectLight(Light(Vec3(-0.2f, -1.0f, -0.3f), Vec3(0.05f, 0.05f, 0.05f), Vec3(0.4f, 0.4f, 0.4f), Vec3(0.5f, 0.5f, 0.5f)));
+
+	light.SetFading(Vec3(1.0f, 0.09f, 0.032f));
 	light.SetShininess(32.0f);
 	light.SetCutOff(12.0f);
 	light.SetOuterCutOff(15.0f);
@@ -43,7 +45,11 @@ void Scene::Setup() {
 		objects.push_back(object);
 	}
 
-	skybox = std::make_shared<SkyBox>();
+	std::shared_ptr<SkyBox> skybox(new SkyBox());
+	Object object;
+	object.SetComponent(skybox);
+	object.SetComponent(std::make_shared<Shader>(shaderSkyBox));
+	objects.push_back(object);
 
 	textureCube = TextureLoading("files/images/metall.jpg");
 
@@ -63,22 +69,16 @@ void Scene::Setup() {
 		objects[count].Setup();
 	}
 
-	skybox->Setup();
-	shaderSkyBox.Use();
-	shaderSkyBox.SetInt("skybox", 0);
+	render = Render(objects);
 }
 
 void Scene::Lighting(Camera& camera) {
 	for (int count = 0; count < objects.size(); count++) {
 		objects[count].SetComponent(camera);
 	}
-	render.SetLighting(objects);
+	render.SetLighting();
 }
 
-void Scene::Draw(Camera& camera) {
-	render.DrawCube(objects);
-
-	render.DrawPoint(objects);
-
-	render.DrawSkyBox(shaderSkyBox, camera, skybox);
+void Scene::Draw() {
+	render.Draw();
 }
