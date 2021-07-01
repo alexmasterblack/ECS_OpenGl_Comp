@@ -43,7 +43,7 @@ public:
 
     void Setup(unsigned int id);
 
-    void SetLight(unsigned int id, Vec3 positions[]);
+    void SetLight(unsigned int id);
 
     void DrawCube(unsigned int id);
 
@@ -61,6 +61,8 @@ private:
     float shininess;
     float cutOff;
     float outerCutOff;
+
+    std::vector<Vec3> GetLightPos();
 };
 
 #endif

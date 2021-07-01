@@ -43,6 +43,8 @@ void Scene::Setup() {
 		objects.push_back(object);
 	}
 
+	skybox = std::make_shared<SkyBox>();
+
 	textureCube = TextureLoading("files/images/metall.jpg");
 
 	std::vector<std::string> faces
@@ -55,7 +57,7 @@ void Scene::Setup() {
 		"skybox/back.png"
 	};
 
-	skybox = std::make_shared<SkyBox>(faces);
+	textureSkyBox = TextureLoading(faces);
 
 	for (int count = 0; count < objects.size(); count++) {
 		objects[count].Setup();
@@ -70,13 +72,13 @@ void Scene::Lighting(Camera& camera) {
 	for (int count = 0; count < objects.size(); count++) {
 		objects[count].SetComponent(camera);
 	}
-	render.SetLighting(objects, positionsPoint);
+	render.SetLighting(objects);
 }
 
 void Scene::Draw(Camera& camera) {
-	render.DrawCube(shaderCube, camera, objects);
+	render.DrawCube(objects);
 
-	render.DrawPoint(shaderPoint, camera, objects);
+	render.DrawPoint(objects);
 
 	render.DrawSkyBox(shaderSkyBox, camera, skybox);
 }

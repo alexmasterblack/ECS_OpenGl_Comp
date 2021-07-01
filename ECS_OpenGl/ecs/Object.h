@@ -46,7 +46,7 @@ public:
 
 	std::shared_ptr<Shader> GetShader();
 
-	void SetLight(Vec3 positions[]);
+	void SetLight();
 
 	void Setup();
 

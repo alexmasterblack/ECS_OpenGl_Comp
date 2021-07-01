@@ -58,7 +58,7 @@ void Cube::Setup() {
 	VAO.VertexAttribPointer(2, 2, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 }
 
-void Cube::SetPointLighting(std::shared_ptr<Shader> shader, Vec3 positions[], Vec3 fading, Camera camera, Light point, float shininess) {
+void Cube::SetPointLighting(std::shared_ptr<Shader> shader, std::vector<Vec3> positions, Vec3 fading, Camera camera, Light point, float shininess) {
 	shader->Use();
 	shader->SetVec3("viewPos", camera.GetPosition());
 	shader->SetFloat("material.shininess", shininess);
@@ -88,9 +88,15 @@ void Cube::SetSpotLighting(std::shared_ptr<Shader> shader, Vec3 fading, Camera c
 }
 
 
-void Cube::Draw(std::shared_ptr<Shader> shader, Vec3 position) {
-	VAO.Binding();
+void Cube::Draw(std::shared_ptr<Shader> shader, Vec3 position, Camera camera) {
+	Mat4 view(camera.GetViewMatrix());
+	Mat4 projection(camera.GetProjectionMatrix());
 
+	shader->Use();
+	shader->SetMat4("view", view);
+	shader->SetMat4("projection", projection);
+
+	VAO.Binding();
 	Mat4 model(1.0f);
 	model = model.Translate(position);
 	shader->SetMat4("model", model);

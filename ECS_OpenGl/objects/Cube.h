@@ -16,13 +16,11 @@ public:
 
 	void Setup();
 
-	void SetDirectLighting();
-
-	void SetPointLighting(std::shared_ptr<Shader> shader, Vec3 positions[], Vec3 fading, Camera camera, Light point, float shininess);
+	void SetPointLighting(std::shared_ptr<Shader> shader, std::vector<Vec3> positions, Vec3 fading, Camera camera, Light point, float shininess);
 
 	void SetSpotLighting(std::shared_ptr<Shader> shader, Vec3 fading, Camera camera, Light spot, float cutOff, float outerCutOff);
 
-	void Draw(std::shared_ptr<Shader> shader, Vec3 position);
+	void Draw(std::shared_ptr<Shader> shader, Vec3 position, Camera camera);
 private:
 	VertexArraysObject VAO;
 

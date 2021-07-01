@@ -62,8 +62,8 @@ std::shared_ptr<Shader> Object::GetShader() {
 	return componets.GetComponent(id);
 }
 
-void Object::SetLight(Vec3 positions[]) {
-	componets.SetLight(id, positions);
+void Object::SetLight() {
+	componets.SetLight(id);
 }
 
 void Object::Setup() {

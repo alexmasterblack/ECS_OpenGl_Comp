@@ -40,6 +40,7 @@ private:
 	Shader shaderSkyBox;
 
 	TextureLoading textureCube;
+	TextureLoading textureSkyBox;
 };
 
 #endif

@@ -17,7 +17,7 @@ public:
 
 	void Setup();
 
-	void Draw(std::shared_ptr<Shader> shader, Vec3 position);
+	void Draw(std::shared_ptr<Shader> shader, Vec3 position, Camera camera);
 private:
 	VertexArraysObject VAO;
 };
