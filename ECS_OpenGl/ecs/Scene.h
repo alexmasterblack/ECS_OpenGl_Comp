@@ -33,7 +33,6 @@ private:
 	Render render;
 
 	Vec3 positionsCube[2];
-
 	Vec3 positionsPoint[3];
 
 	Shader shaderPoint;

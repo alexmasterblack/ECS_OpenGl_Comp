@@ -22,12 +22,48 @@ void Object::SetComponent(std::shared_ptr<Shader> shader) {
 	componets.PushComponent(shader, id);
 }
 
+void Object::SetComponent(Camera camera) {
+	componets.PushComponent(camera, id);
+}
+
+void Object::SetPointLight(Light point) {
+	componets.PushPointLight(point);
+}
+
+void Object::SetSpotLight(Light spot) {
+	componets.PushSpotLight(spot);
+}
+
+void Object::SetFading(float constant, float linear, float quadratic) {
+	componets.PushFading(Vec3(constant, linear, quadratic));
+}
+
+void Object::SetFading(Vec3 fading) {
+	componets.PushFading(fading);
+}
+
+void Object::SetCutOff(float cutOff) {
+	componets.PushCutOff(cutOff);
+}
+
+void Object::SetOuterCutOff(float outerCutOff) {
+	componets.PushOuterCutOff(outerCutOff);
+}
+
+void Object::SetShininess(float shininess) {
+	componets.PushShininess(shininess);
+}
+
 void Object::SetComponent(Vec3 position) {
 	componets.PushComponent(position, id);
 }
 
 std::shared_ptr<Shader> Object::GetShader() {
 	return componets.GetComponent(id);
+}
+
+void Object::SetLight(Vec3 positions[]) {
+	componets.SetLight(id, positions);
 }
 
 void Object::Setup() {

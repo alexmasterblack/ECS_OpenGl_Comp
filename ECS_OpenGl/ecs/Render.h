@@ -29,7 +29,7 @@ public:
 
 	void DrawSkyBox(Shader& shader, Camera& camera, std::shared_ptr<SkyBox> skybox);
 
-	void SetLighting(Shader& shader, Camera& camera, Vec3 positionsPoint[]);
+	void SetLighting(std::vector<Object> objects, Vec3 positionsPoint[]);
 private:
 };
 

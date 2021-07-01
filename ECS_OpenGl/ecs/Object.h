@@ -7,6 +7,7 @@
 #include "../my_math/Vec3.h"
 
 #include "../Shader.h"
+#include "../Light.h"
 #include "../objects/Cube.h"
 #include "../objects/PointLight.h"
 #include "Component.h"
@@ -25,9 +26,27 @@ public:
 
 	void SetComponent(std::shared_ptr<Shader> shader);
 
+	void SetComponent(Camera camera);
+
+	void SetPointLight(Light point);
+
+	void SetSpotLight(Light spot);
+
+	void SetFading(float constant, float linear, float quadratic);
+
+	void SetFading(Vec3 fading);
+
+	void SetCutOff(float cutOff);
+
+	void SetOuterCutOff(float outerCutOff);
+
+	void SetShininess(float shininess);
+
 	void SetComponent(Vec3 position);
 
 	std::shared_ptr<Shader> GetShader();
+
+	void SetLight(Vec3 positions[]);
 
 	void Setup();
 

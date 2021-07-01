@@ -17,6 +17,14 @@ void Scene::Setup() {
 	shaderPoint = Shader("files/shaders/cube.vs", "files/shaders/cube.fs");
 	shaderSkyBox = Shader("files/shaders/skybox.vs", "files/shaders/skybox.fs");
 
+	Object light;
+	light.SetPointLight(Light(Vec3(0.05f, 0.05f, 0.05f), Vec3(0.8f, 0.8f, 0.8f), Vec3(1.0f, 1.0f, 1.0f)));
+	light.SetSpotLight(Light(Vec3(0.0f, 0.0f, 0.0f), Vec3(1.0f, 1.0f, 1.0f), Vec3(1.0f, 1.0f, 1.0f)));
+	light.SetFading(Vec3(1.0f, 0.09, 0.032));
+	light.SetShininess(32.0f);
+	light.SetCutOff(12.0f);
+	light.SetOuterCutOff(15.0f);
+
 	for (int count = 0; count < 2; count++) {
 		std::shared_ptr<Cube> cube(new Cube());
 		Object object;
@@ -27,9 +35,9 @@ void Scene::Setup() {
 	}
 
 	for (int count = 0; count < 3; count++) {
-		std::shared_ptr<PointLight> cube(new PointLight());
+		std::shared_ptr<PointLight> point(new PointLight());
 		Object object;
-		object.SetComponent(cube);
+		object.SetComponent(point);
 		object.SetComponent(std::make_shared<Shader>(shaderPoint));
 		object.SetComponent(positionsPoint[count]);
 		objects.push_back(object);
@@ -59,7 +67,10 @@ void Scene::Setup() {
 }
 
 void Scene::Lighting(Camera& camera) {
-	render.SetLighting(shaderCube, camera, positionsPoint);
+	for (int count = 0; count < objects.size(); count++) {
+		objects[count].SetComponent(camera);
+	}
+	render.SetLighting(objects, positionsPoint);
 }
 
 void Scene::Draw(Camera& camera) {

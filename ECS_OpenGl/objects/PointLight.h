@@ -2,11 +2,14 @@
 #define POINT_H
 
 #include <memory>
+#include <string>
 
 #include "../my_math/Vec3.h"
 #include "../TextureLoading.h"
 #include "../Shader.h"
 #include "../VertexArraysObject.h"
+#include "../Camera.h"
+#include "../Light.h"
 
 class PointLight {
 public:
