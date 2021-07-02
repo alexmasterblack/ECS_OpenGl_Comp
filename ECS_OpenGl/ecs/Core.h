@@ -6,7 +6,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#include "../Camera.h"
 #include "Scene.h"
 
 class Core {
@@ -24,8 +23,8 @@ public:
 	void PostUpdate();
 private:
 	sf::RenderWindow window;
-	Camera camera;
 	Scene scene;
+	bool flag = true;
 };
 
 #endif

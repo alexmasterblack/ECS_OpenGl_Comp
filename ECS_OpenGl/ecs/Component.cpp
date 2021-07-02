@@ -16,6 +16,10 @@ void Component::PushComponent(std::shared_ptr<SkyBox> skybox, unsigned int id) {
 	this->skybox[id] = skybox;
 }
 
+void Component::PushComponent(InputManager input) {
+	this->input = input;
+}
+
 void Component::PushComponent(Vec3 position, unsigned int id) {
 	positions[id] = position;
 }
@@ -34,6 +38,42 @@ void Component::PushSpotLight(Light spot) {
 
 void Component::PushDirectLight(Light directional) {
 	this->directional = directional;
+}
+
+void Component::PushEvent(sf::Event event) {
+	this->event = event;
+}
+
+void Component::PushPosition(Vec3 position) {
+	this->position = position;
+}
+
+void Component::PushFront(Vec3 front) {
+	this->front = front;
+}
+
+void Component::PushUp(Vec3 up) {
+	this->up = up;
+}
+
+void Component::PushYaw(float yaw) {
+	this->yaw = yaw;
+}
+
+void Component::PushPitch(float pitch) {
+	this->pitch = pitch;
+}
+
+void Component::PushMouse(std::pair<int, int> mouse) {
+	this->mouse = mouse;
+}
+
+void Component::PushSpeed(float speed) {
+	this->speed = speed;
+}
+
+void Component::PushSpeedMouse(float speedMouse) {
+	this->speedMouse = speedMouse;
 }
 
 void Component::PushFading(Vec3 fading) {
@@ -56,7 +96,15 @@ std::shared_ptr<Shader> Component::GetComponent(unsigned int id) {
 	return shaders.at(id);
 }
 
+void Component::Input(bool& flag) {
+	input.ReadInput(event, mouse, position, front, up, yaw, pitch, speed, speedMouse, flag);
+	UpdateCamera();
+}
+
 void Component::Setup(unsigned int id) {
+	if (cameras.find(id) != cameras.end())
+		cameras.at(id).Update(position, front, up);
+
 	if (cubes.find(id) != cubes.end())
 		cubes.at(id)->Setup();
 
@@ -94,4 +142,9 @@ std::vector<Vec3> Component::GetLightPos() {
 		posLights.push_back(positions.at(element.first));
 	}
 	return posLights;
+}
+
+void Component::UpdateCamera() {
+	for (auto it = cameras.begin(); it != cameras.end(); it++)
+		it->second.Update(position, front, up);
 }

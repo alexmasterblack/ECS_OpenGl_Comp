@@ -4,8 +4,10 @@
 #include <string>
 #include <memory>
 
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include "../my_math/Vec3.h"
-
+#include "../InputManager.h"
 #include "../Shader.h"
 #include "../Light.h"
 #include "../objects/Cube.h"
@@ -28,13 +30,19 @@ public:
 
 	void SetComponent(std::shared_ptr<SkyBox> skybox);
 
+	void SetComponent(InputManager input);
+
 	void SetComponent(Camera camera);
+
+	void SetComponent(Vec3 position);
 
 	void SetPointLight(Light point);
 
 	void SetSpotLight(Light spot);
 
 	void SetDirectLight(Light directional);
+
+	void SetEvent(sf::Event event);
 
 	void SetFading(float constant, float linear, float quadratic);
 
@@ -46,9 +54,25 @@ public:
 
 	void SetShininess(float shininess);
 
-	void SetComponent(Vec3 position);
+	void SetCamPos(Vec3 position);
+
+	void SetCamFront(Vec3 front);
+
+	void SetCamUp(Vec3 up);
+
+	void SetCamYaw(float yaw);
+
+	void SetCamPitch(float pitch);
+
+	void SetMouse(std::pair<int, int> mouse);
+
+	void SetSpeed(float speed);
+
+	void SetSpeedMouse(float speedMouse);
 
 	std::shared_ptr<Shader> GetShader();
+
+	void ReadInput(bool& flag);
 
 	void SetLight();
 

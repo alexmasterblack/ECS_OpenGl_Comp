@@ -51,6 +51,21 @@ void Scene::Setup() {
 	object.SetComponent(std::make_shared<Shader>(shaderSkyBox));
 	objects.push_back(object);
 
+	for (int count = 0; count < objects.size(); count++) {
+		objects[count].SetComponent(Camera());
+	}
+	Object camera;
+	camera.SetCamPos(Vec3(0.0f, 0.0f, 3.0f));
+	camera.SetCamFront(Vec3(0.0f, 0.0f, -1.0f));
+	camera.SetCamUp(Vec3(0.0f, 1.0f, 0.0f));
+	camera.SetCamYaw(-90.0f);
+	camera.SetCamPitch(0.0f);
+	camera.SetMouse(std::make_pair<int, int>(800 / 2.0f, 600 / 2.0f));
+	camera.SetSpeed(0.05f);
+	camera.SetSpeedMouse(0.3f);
+
+	input.SetComponent(InputManager());
+
 	textureCube = TextureLoading("files/images/metall.jpg");
 
 	std::vector<std::string> faces
@@ -72,10 +87,12 @@ void Scene::Setup() {
 	render = Render(objects);
 }
 
-void Scene::Lighting(Camera& camera) {
-	for (int count = 0; count < objects.size(); count++) {
-		objects[count].SetComponent(camera);
-	}
+void Scene::Event(sf::Event event, bool& flag) {
+	input.SetEvent(event);
+	input.ReadInput(flag);
+}
+
+void Scene::Lighting() {
 	render.SetLighting();
 }
 

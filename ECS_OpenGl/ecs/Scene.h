@@ -5,10 +5,13 @@
 #include <vector>
 #include <memory>
 
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include "../TextureLoading.h"
 #include "../Shader.h"
 #include "../Camera.h"
 #include "../Light.h"
+#include "../InputManager.h"
 #include "Object.h"
 #include "Render.h"
 #include "../objects/Cube.h"
@@ -23,7 +26,9 @@ public:
 
 	void Setup();
 
-	void Lighting(Camera& camera);
+	void Event(sf::Event event, bool& flag);
+
+	void Lighting();
 
 	void Draw();
 private:
@@ -31,6 +36,7 @@ private:
 	std::shared_ptr<SkyBox> skybox;
 
 	Render render;
+	Object input;
 
 	Vec3 positionsCube[2];
 	Vec3 positionsPoint[3];

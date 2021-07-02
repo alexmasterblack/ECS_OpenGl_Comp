@@ -151,6 +151,7 @@
     <ClCompile Include="ECS_OpenGl.cpp" />
     <ClCompile Include="general\shaderLoader.cpp" />
     <ClCompile Include="general\stb_image.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="my_math\Mat3.cpp" />
     <ClCompile Include="my_math\Mat4.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="ecs\Scene.h" />
     <ClInclude Include="general\shaderLoader.h" />
     <ClInclude Include="general\stb_image.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="my_math\Mat3.h" />
     <ClInclude Include="my_math\Mat4.h" />
